@@ -7,7 +7,6 @@ import { CoreModule } from './core/core.module';
 
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from 'src/environments/environment';
-import { MaterialModule } from './material.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,7 +15,6 @@ import { MaterialModule } from './material.module';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     CoreModule,
-    MaterialModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
