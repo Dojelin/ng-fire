@@ -20,6 +20,7 @@ interface User {
 @Injectable()
 export class AuthService {
   user: Observable<User> | Observable<null>;
+  authState: any = null;
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -35,6 +36,16 @@ export class AuthService {
         }
       })
     );
+
+    this.afAuth.authState.subscribe((data) => (this.authState = data));
+  }
+
+  get authenticated(): boolean {
+    return this.authState !== null;
+  }
+
+  get currentUsrId(): string {
+    return this.authenticated ? this.authState.uid : null;
   }
 
   emailSignIn(email: string, password: string) {

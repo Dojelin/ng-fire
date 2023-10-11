@@ -6,6 +6,7 @@ import { AuthService } from './auth.service';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { UserModule } from '../user/user.module';
 
 @NgModule({
   declarations: [],
@@ -15,6 +16,7 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireAuthModule,
+    UserModule,
   ],
   providers: [AuthService],
 })
