@@ -49,6 +49,21 @@ export class AuthService {
       .createUserWithEmailAndPassword(email, password)
       .then((result) => this.updateUserData(result.user))
       .then(() => console.log('Welcome, your account has been created'))
+      .then(() => {
+        this.afAuth.currentUser
+          .then((user) => {
+            user.sendEmailVerification();
+          })
+          .then(() => console.log('We sent you an email verification'))
+          .catch((error) => console.log(error.message));
+      })
+      .catch((error) => console.log(error.message));
+  }
+
+  resetPassword(email: string) {
+    return this.afAuth
+      .sendPasswordResetEmail(email)
+      .then(() => console.log("We've sent you a password reset link"))
       .catch((error) => console.log(error.message));
   }
 
