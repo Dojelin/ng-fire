@@ -20,7 +20,7 @@ const routes: Routes = [
     data: { title: 'Users' },
   },
   {
-    path: 'profile',
+    path: 'users/:id',
     component: UserDetailComponent,
     data: { title: 'Profile' },
   },
