@@ -7,6 +7,7 @@ import { CoreModule } from './core/core.module';
 
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from 'src/environments/environment';
+import { PostModule } from './post/post.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,6 +16,7 @@ import { environment } from 'src/environments/environment';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     CoreModule,
+    PostModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

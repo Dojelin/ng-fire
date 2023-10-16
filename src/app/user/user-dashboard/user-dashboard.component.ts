@@ -73,7 +73,7 @@ export class UserDashboardComponent {
     const data = {
       website: this.user.website || null,
       location: this.user.location || null,
-      bnio: this.user.bio || null,
+      bio: this.user.bio || null,
     };
 
     this.userService.updateUserData(data);
