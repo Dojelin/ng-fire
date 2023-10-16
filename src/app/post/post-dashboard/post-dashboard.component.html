@@ -1,1 +1,39 @@
-<mat-slide-toggle>Slide me!</mat-slide-toggle>
+<mat-card>
+  <section>
+    <input
+      type="file"
+      name="file"
+      id="file"
+      (change)="uploadPostImage($event)"
+    />
+    <div [hidden]="!uploadPercent">
+      <mat-progress-bar
+        mode="determinate"
+        value="{{ uploadPercent | async }}"
+      ></mat-progress-bar>
+    </div>
+    <a [href]="downloadURL | async" [hidden]="!downloadURL"
+      >Click this link {{ downloadURL | async }}</a
+    >
+    <div class="img-preview" [hidden]="!imageURL">
+      <img [src]="imageURL || '//:0'" />
+    </div>
+  </section>
+  <section>
+    <form [formGroup]="postForm" (ngSubmit)="savePost()">
+      <mat-form-field>
+        <input matInput placeholder="Post title" formControlName="title" />
+      </mat-form-field>
+      <mat-form-field>
+        <textarea
+          matInput
+          placeholder="Post content"
+          formControlName="content"
+        ></textarea>
+      </mat-form-field>
+      <mat-slide-toggle formControlName="draf">Publish?</mat-slide-toggle>
+
+      <button mat-raised-button type="submit" color="accent">Save</button>
+    </form>
+  </section>
+</mat-card>
