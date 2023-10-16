@@ -37,7 +37,9 @@ export class AuthService {
       })
     );
 
-    this.afAuth.authState.subscribe((data) => (this.authState = data));
+    this.afAuth.authState.subscribe((data) => {
+      this.authState = data;
+    });
   }
 
   get authenticated(): boolean {
@@ -88,7 +90,6 @@ export class AuthService {
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(
       `users/${user.uid}`
     );
-    console.log(user);
     const data: User = {
       uid: user.uid,
       email: user.email,
@@ -99,7 +100,6 @@ export class AuthService {
           Md5.hashStr(user.uid) +
           '?d=identicon',
     };
-    console.log(data);
     return userRef.set(data, { merge: true });
   }
 }
