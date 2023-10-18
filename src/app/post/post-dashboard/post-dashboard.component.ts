@@ -47,20 +47,21 @@ export class PostDashboardComponent implements OnInit, OnDestroy {
 
   savePost() {
     const formData: Post = {
-      author: this.auth.currentUsrId,
+      author: this.auth.authState.displayName || this.auth.authState.email,
+      authorId: this.auth.currentUsrId,
       title: this.postForm.get('title').value,
       image: this.imageURL,
       content: this.postForm.get('content').value,
       draf: this.postForm.get('draf').value,
       published: new Date(),
-      claps: 0,
+      trending: 0,
     };
 
     if (!this.postForm.untouched) {
       this.postService.create(formData);
+      this.postForm.reset();
+      this.imageURL = null;
     }
-    this.postForm.reset();
-    this.imageURL = '';
   }
 
   uploadPostImage(event) {
