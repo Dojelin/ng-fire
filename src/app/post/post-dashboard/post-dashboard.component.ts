@@ -52,7 +52,7 @@ export class PostDashboardComponent implements OnInit, OnDestroy {
       title: this.postForm.get('title').value,
       image: this.imageURL,
       content: this.postForm.get('content').value,
-      draf: this.postForm.get('draf').value,
+      draf: this.postForm.get('draf').value || false,
       published: new Date(),
       trending: 0,
     };
