@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   AngularFireStorage,
   AngularFireUploadTask,
@@ -15,19 +15,32 @@ import { finalize } from 'rxjs';
   templateUrl: './user-dashboard.component.html',
   styleUrls: ['./user-dashboard.component.css'],
 })
-export class UserDashboardComponent {
+export class UserDashboardComponent implements OnInit {
   editing = false;
   user: User;
 
   task: AngularFireUploadTask;
+
+  path: string;
+  meta: object;
 
   constructor(
     private auth: AuthService,
     private userService: UserService,
     private storage: AngularFireStorage,
     private location: Location
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this.getUser();
+    this.setUploadData();
+  }
+
+  setUploadData() {
+    return this.auth.user.subscribe((user) => {
+      this.path = `users/${user.uid}/uploads`;
+      this.meta = { uploader: user.uid, webside: 'http://webtest.com' };
+    });
   }
 
   getUser() {
