@@ -8,6 +8,7 @@ import { CoreModule } from './core/core.module';
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from 'src/environments/environment';
 import { PostModule } from './post/post.module';
+import { GalleryModule } from './gallery/gallery.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,6 +18,7 @@ import { PostModule } from './post/post.module';
     AngularFireModule.initializeApp(environment.firebase),
     CoreModule,
     PostModule,
+    GalleryModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
