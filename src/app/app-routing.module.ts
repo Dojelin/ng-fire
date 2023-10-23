@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { GalleryListComponent } from './gallery/gallery-list/gallery-list.component';
 
 const routes: Routes = [
   // {
@@ -8,7 +7,12 @@ const routes: Routes = [
   //   redirectTo: '/users',
   //   pathMatch: 'full',
   // },
-  { path: '', component: GalleryListComponent },
+  // { path: '', component: GalleryListComponent },
+  {
+    path: '',
+    loadChildren: () =>
+      import('./gallery/gallery.module').then((m) => m.GalleryModule),
+  },
   {
     path: '',
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),

@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import {
   AngularFirestore,
   AngularFirestoreCollection,
+  AngularFirestoreDocument,
 } from '@angular/fire/compat/firestore';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { map } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 
@@ -10,9 +12,14 @@ import { AuthService } from '../auth/auth.service';
   providedIn: 'root',
 })
 export class GalleryService {
-  galleryCollection: AngularFirestoreCollection;
+  galleryCollection: AngularFirestoreCollection<any>;
+  galleryDoc: AngularFirestoreDocument<any>;
 
-  constructor(private afs: AngularFirestore, private auth: AuthService) {}
+  constructor(
+    private afs: AngularFirestore,
+    private auth: AuthService,
+    private storage: AngularFireStorage
+  ) {}
 
   getImages() {
     const uid = this.auth.currentUsrId;
@@ -28,5 +35,25 @@ export class GalleryService {
         });
       })
     );
+  }
+
+  getImage(id: string) {
+    const uid = this.auth.currentUsrId;
+    this.galleryDoc = this.afs.doc(`users/${uid}/gallery/${id}`);
+
+    return this.galleryDoc.valueChanges();
+  }
+
+  deleteImage(id: string, name: string) {
+    const uid = this.auth.currentUsrId;
+    const imageRef = this.storage
+      .ref(`users/${uid}/gallery`)
+      .child(name)
+      .delete();
+
+    console.log('Image deleted from storage bucket');
+
+    this.afs.doc(`users/${uid}/gallery/${id}`).delete();
+    console.log('Image deleted from database');
   }
 }

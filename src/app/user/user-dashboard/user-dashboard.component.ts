@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   AngularFireStorage,
   AngularFireUploadTask,
@@ -8,18 +8,22 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { User } from '../user.model';
 import { UserService } from '../user.service';
 
-import { finalize } from 'rxjs';
+import { Subscription, finalize } from 'rxjs';
 
 @Component({
   selector: 'app-user-dashboard',
   templateUrl: './user-dashboard.component.html',
   styleUrls: ['./user-dashboard.component.css'],
 })
-export class UserDashboardComponent implements OnInit {
+export class UserDashboardComponent implements OnInit, OnDestroy {
   editing = false;
   user: User;
 
   task: AngularFireUploadTask;
+
+  taskSubscription: Subscription;
+  userSubscription: Subscription;
+  uploadDataSubscription: Subscription;
 
   path: string;
   meta: object;
@@ -32,8 +36,8 @@ export class UserDashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getUser();
-    this.setUploadData();
+    this.userSubscription = this.getUser();
+    this.uploadDataSubscription = this.setUploadData();
   }
 
   setUploadData() {
@@ -59,7 +63,7 @@ export class UserDashboardComponent implements OnInit {
     } else {
       this.task = this.storage.upload(path, file);
 
-      this.task
+      this.taskSubscription = this.task
         .snapshotChanges()
         .pipe(
           finalize(() => {
@@ -94,5 +98,14 @@ export class UserDashboardComponent implements OnInit {
 
   goBack() {
     this.location.back();
+  }
+
+  ngOnDestroy(): void {
+    this.userSubscription.unsubscribe();
+    this.uploadDataSubscription.unsubscribe();
+
+    if (this.taskSubscription) {
+      this.taskSubscription.unsubscribe();
+    }
   }
 }
