@@ -41,8 +41,9 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
   }
 
   setUploadData() {
+    const userId = this.auth.currentUsrId;
     return this.auth.user.subscribe((user) => {
-      this.path = `users/${user.uid}/gallery`;
+      this.path = `users/${userId}/gallery`;
       this.meta = { uploader: user.uid, webside: 'http://webtest.com' };
     });
   }

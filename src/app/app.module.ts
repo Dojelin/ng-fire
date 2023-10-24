@@ -7,8 +7,9 @@ import { CoreModule } from './core/core.module';
 
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from 'src/environments/environment';
-import { PostModule } from './post/post.module';
 import { GalleryModule } from './gallery/gallery.module';
+import { PostModule } from './post/post.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,8 +20,8 @@ import { GalleryModule } from './gallery/gallery.module';
     CoreModule,
     PostModule,
     GalleryModule,
+    SharedModule,
   ],
-  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

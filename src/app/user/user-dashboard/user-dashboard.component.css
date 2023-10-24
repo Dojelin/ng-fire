@@ -47,11 +47,17 @@ mat-form-field {
   z-index: -1;
 }
 .hero {
-  background-color: var(--app-primary-color);
+  /* background-color: var(--app-primary-color); */
   min-height: 200px;
   padding-top: 15px;
-  color: white;
+  /* color: white; */
 }
 .hero-text {
   margin-left: 15px;
+}
+
+mat-card {
+  margin: 0.5em;
+  max-width: 600px;
+  margin: 16px auto;
 }

@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PostModule } from '../post/post.module';
+import { routingGuard } from '../routing.guard';
 import { SharedModule } from '../shared/shared.module';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
@@ -13,6 +14,7 @@ const routes: Routes = [
   {
     path: 'me',
     component: UserDashboardComponent,
+    canActivate: [routingGuard],
     data: { title: 'Dashboard' },
   },
   {

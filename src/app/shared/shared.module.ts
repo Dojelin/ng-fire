@@ -1,14 +1,22 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../material.module';
 import { FromNowPipe } from './from-now.pipe';
+import { NavbarComponent } from './navbar/navbar.component';
 import { UploadComponent } from './upload/upload.component';
 import { UploadService } from './upload/upload.service';
 
 @NgModule({
-  declarations: [FromNowPipe, UploadComponent],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, MaterialModule],
+  declarations: [FromNowPipe, UploadComponent, NavbarComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MaterialModule,
+    RouterModule,
+  ],
   exports: [
     CommonModule,
     FormsModule,
@@ -16,6 +24,7 @@ import { UploadService } from './upload/upload.service';
     MaterialModule,
     FromNowPipe,
     UploadComponent,
+    NavbarComponent,
   ],
   providers: [UploadService],
 })

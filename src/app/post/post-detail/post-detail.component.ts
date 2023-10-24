@@ -24,7 +24,6 @@ export class PostDetailComponent implements OnInit, OnDestroy {
 
   getPost() {
     const id = this.route.snapshot.paramMap.get('id');
-    console.log(id);
 
     this.postDataSubscription = this.postService
       .getPostData(id)
