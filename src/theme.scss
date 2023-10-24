@@ -1,0 +1,56 @@
+@use "@angular/material" as mat;
+
+@include mat.core();
+
+$purple-palette: (
+  50: #e8eaf6,
+  900: #512da8,
+  contrast: (
+    50: rgba(black, 0.87),
+    300: white,
+  ),
+);
+
+$orange-palette: (
+  50: #ffffff,
+  900: #ff5722,
+  contrast: (
+    50: rgba(black, 0.87),
+    300: white,
+  ),
+);
+
+$red-palette: (
+  50: #ffcdd2,
+  900: #d32f2f,
+  contrast: (
+    50: rgba(black, 0.87),
+    300: white,
+  ),
+);
+
+$ngFire-primary: mat.define-palette(mat.$purple-palette, 900);
+$ngFire-accent: mat.define-palette(mat.$orange-palette, A200);
+$ngFire-warn: mat.define-palette(mat.$red-palette);
+
+$ngFire-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $ngFire-primary,
+      accent: $ngFire-accent,
+      warn: $ngFire-warn,
+    ),
+    density: 0,
+  )
+);
+
+// Emit theme-dependent styles for common features used across multiple components.
+@include mat.core-theme($ngFire-theme);
+
+// Emit styles for MatButton based on `$ngFire-theme`. Because the configuration
+// passed to `define-light-theme` omits typography, `button-theme` will not
+// emit any typography styles.
+@include mat.button-theme($ngFire-theme);
+
+// Include the theme mixins for other components you use here.
+@include mat.all-component-themes($ngFire-theme);
